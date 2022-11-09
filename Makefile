@@ -4,6 +4,13 @@ endif
 
 .DEFAULT_GOAL:=help
 
+##@ Run
+
+.PHONY: repl
+
+repl: ## Start the monkey REPL
+	go run .
+
 ##@ Test
 
 .PHONY: test coverage
