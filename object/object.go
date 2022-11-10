@@ -27,6 +27,10 @@ type Error struct {
 	Message string
 }
 
+type Environment struct {
+	store map[string]Object
+}
+
 const (
 	INTEGER_OBJ      = "INTEGER"
 	BOOLEAN_OBJ      = "BOOLEAN"
@@ -49,3 +53,18 @@ func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
 
 func (e *Error) Type() ObjectType { return ERROR_OBJ }
 func (e *Error) Inspect() string  { return "ERROR: " + e.Message }
+
+func NewEnvironment() *Environment {
+	s := make(map[string]Object)
+	return &Environment{store: s}
+}
+func (e *Environment) Get(name string) (Object, bool) {
+	obj, ok := e.store[name]
+
+	return obj, ok
+}
+func (e *Environment) Set(name string, val Object) Object {
+	e.store[name] = val
+
+	return val
+}
